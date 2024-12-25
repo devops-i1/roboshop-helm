@@ -11,6 +11,5 @@ while true ; do
   sleep 5
 done
 
-exit
 kubectl create ns argocd
 kubectl apply -f argo-dev.yaml -n argocd
