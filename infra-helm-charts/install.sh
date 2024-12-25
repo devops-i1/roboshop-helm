@@ -13,3 +13,6 @@ done
 
 kubectl create ns argocd
 kubectl apply -f argo-dev.yaml -n argocd
+
+kubectl apply -f external-dns-dev.yaml
+sleep 15
