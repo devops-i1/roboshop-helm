@@ -1,0 +1,13 @@
+initContainers:
+  enabled: false
+component: frontend
+appVersion: 2.0.1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  hostName: frontend-dev.akhilsaidevops.online

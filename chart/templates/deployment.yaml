@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.component }}
+  labels:
+    appName: {{ .Values.component }}
+    projectName: {{ .Chart.Name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      appName: {{ .Values.component }}
+      projectName: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        appName: {{ .Values.component }}
+        projectName: {{ .Chart.Name }}
+    spec:
+    {{ if .Values.initContainers.enabled }}
+      volumes:
+        - name: vault
+          emptyDir:
+            sizeLimit: 5Mi
+      initContainers:
+        - name: vault
+          image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/vault-init-container:v2
+          env:
+            - name: VAULT_ADDR
+              value: "https://vault.akhilsaidevops.online:8200"
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vault-token
+                  key: token
+            - name: SECRET_NAME
+              value: {{ .Chart.Name }}-dev/{{ .Values.component }}
+            - name: VAULT_SKIP_VERIFY
+              value: "TRUE"
+          volumeMounts:
+            - mountPath: /data
+              name: vault
+        - name: schema
+          image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/schema-init-container:v2
+          volumeMounts:
+            - mountPath: /data
+              name: vault
+    {{ end }}
+      containers:
+        - name: {{ .Values.component }}
+          image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/{{ .Chart.Name }}-{{ .Values.component }}:{{ .Values.appVersion }}
+    {{ if .Values.initContainers.enabled }}
+          volumeMounts:
+            - mountPath: /data
+              name: vault
+    {{ end }}
