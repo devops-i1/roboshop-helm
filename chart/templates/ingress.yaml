@@ -6,6 +6,8 @@ metadata:
   labels:
     appName: {{ .Values.component }}
     projectName: {{ .Chart.Name }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.hostName }}
 spec:
   ingressClassName: nginx
   rules:
