@@ -5,3 +5,6 @@ service:
 
 schema:
   enabled: false
+
+deployment:
+  replicas: 1
