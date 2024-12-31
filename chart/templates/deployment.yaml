@@ -22,7 +22,7 @@ spec:
         - name: vault
           emptyDir:
             sizeLimit: 5Mi
-      {{ if .Values.initContainers.vault_init_container_enabled.enabled }}
+      {{ if .Values.initContainers.vault_init_container_enabled }}
       initContainers:
         - name: vault
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/vault-init-container:v2
@@ -42,7 +42,7 @@ spec:
             - mountPath: /data
               name: vault
         {{ end }}
-        {{ if .Values.initContainers.vault_init_container_enabled.enabled }}
+        {{ if .Values.initContainers.vault_init_container_enabled }}
         - name: schema
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/schema-init-container:v2
           volumeMounts:
