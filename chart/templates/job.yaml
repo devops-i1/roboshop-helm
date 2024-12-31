@@ -1,0 +1,20 @@
+{{ if .Values.schema.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.component }}-schema-load
+  labels:
+    appName: {{ .Values.component }}
+    projectName: {{ .Chart.Name }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: schema-load
+          image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/schema-init-container:v3
+          env:
+            - name: db_type
+              value: {{ .Values.schema.db_type }}
+      restartPolicy: Never
+  backoffLimit: 1
+{{ end }}

@@ -1,7 +1,10 @@
 initContainers:
   enabled: true
   vault_init_container_enabled: true
-  schema_init_container_enabled: false
+
+schema:
+  enabled: true
+  db_type: mongo
 
 component: catalogue
 appVersion: 2.0.2
