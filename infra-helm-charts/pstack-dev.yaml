@@ -22,3 +22,5 @@ prometheus:
       external-dns.alpha.kubernetes.io/hostname: prometheus-dev.akhilsaidevops.online
     hosts:
       - prometheus-dev.akhilsaidevops.online
+
+# grafana default username / password - admin / prom-operator
