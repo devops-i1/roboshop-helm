@@ -25,7 +25,7 @@ spec:
       {{ if .Values.initContainers.vault_init_container_enabled }}
       initContainers:
         - name: vault
-          image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/vault-init-container:v2
+          image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/vault-init-container:v3
           env:
             - name: VAULT_ADDR
               value: "https://vault.akhilsaidevops.online:8200"
