@@ -42,7 +42,7 @@ spec:
             - mountPath: /data
               name: vault
         {{ end }}
-        {{ if .Values.initContainers.vault_init_container_enabled }}
+        {{ if .Values.initContainers.schema_init_container_enabled }}
         - name: schema
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/schema-init-container:v2
           volumeMounts:
