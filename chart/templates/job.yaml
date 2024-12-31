@@ -9,12 +9,37 @@ metadata:
 spec:
   template:
     spec:
+      volumes:
+        - name: vault
+          emptyDir:
+            sizeLimit: 5Mi
+      initContainers:
+        - name: vault
+          image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/vault-init-container:v5
+          env:
+            - name: VAULT_ADDR
+              value: "https://vault.akhilsaidevops.online:8200"
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vault-token
+                  key: token
+            - name: SECRET_NAME
+              value: {{ .Chart.Name }}-dev/{{ .Values.component }}
+            - name: VAULT_SKIP_VERIFY
+            value: "TRUE"
+          volumeMounts:
+            - mountPath: /data
+              name: vault
       containers:
         - name: schema-load
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/schema-init-container:v4
           env:
             - name: db_type
               value: {{ .Values.schema.db_type }}
+          volumeMounts:
+            - mountPath: /data
+              name: vault
       restartPolicy: Never
   backoffLimit: 1
 {{ end }}
