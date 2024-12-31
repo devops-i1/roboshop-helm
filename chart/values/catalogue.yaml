@@ -1,5 +1,5 @@
 initContainers:
-  enabled: false
+  enabled: true
 component: catalogue
 appVersion: 2.0.0
 
