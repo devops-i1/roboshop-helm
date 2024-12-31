@@ -1,0 +1,24 @@
+alertmanager:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: alertmanager-dev.akhilsaidevops.online
+    hosts:
+      - alertmanager-dev.akhilsaidevops.online
+grafana:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: grafana-dev.akhilsaidevops.online
+    hosts:
+      - grafana-dev.akhilsaidevops.online
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: prometheus-dev.akhilsaidevops.online
+    hosts:
+      - prometheus-dev.akhilsaidevops.online

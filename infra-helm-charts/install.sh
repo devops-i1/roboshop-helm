@@ -28,3 +28,8 @@ echo
 echo
 echo
 echo "ArgoCD Password : $(argocd admin initial-password -n argocd | head -1)"
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm install pstack prometheus-community/kube-prometheus-stack -f pstack-dev.yaml
