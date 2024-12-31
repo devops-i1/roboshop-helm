@@ -1,3 +1,6 @@
 dummy: dummy
 service:
   type: ClusterIP
+
+schema:
+  enabled: false
