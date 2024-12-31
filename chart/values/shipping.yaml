@@ -1,5 +1,7 @@
 initContainers:
-  enabled: false
+  enabled: true
+  vault_init_container_enabled: true
+
 component: shipping
 appVersion: 2.0.0
 
