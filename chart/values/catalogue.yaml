@@ -1,5 +1,8 @@
 initContainers:
   enabled: true
+  vault_init_container_enabled: true
+  schema_init_container_enabled: false
+
 component: catalogue
 appVersion: 2.0.0
 
