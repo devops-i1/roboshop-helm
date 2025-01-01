@@ -7,7 +7,7 @@ schema:
   db_type: mysql
 
 component: shipping
-appVersion: 2.0.4
+appVersion: 2.0.5
 
 service:
   type: ClusterIP
