@@ -26,13 +26,13 @@ done
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 
-helm install pstack prometheus-community/kube-prometheus-stack -f pstack-dev.yaml
+helm upgrade -i pstack prometheus-community/kube-prometheus-stack -f pstack-dev.yaml
 
 # grafana default username / password  -  admin / prom-operator
 
 kubectl create -f https://download.elastic.co/downloads/eck/2.13.0/crds.yaml
 kubectl apply -f https://download.elastic.co/downloads/eck/2.13.0/operator.yaml
-helm install elk elastic/eck-stack -n elastic-stack --create-namespace
+helm upgrade -i elk elastic/eck-stack -n elastic-stack --create-namespace
 
 ES_PASSWORD=$(kubectl get secrets -n elastic-stack elasticsearch-es-elastic-user -o json | jq '.data.elastic' | sed -e 's/"//g' | base64 --decode)
 sed -e "s/ES_PASSWORD/${ES_PASSWORD}/" eck.yaml >/tmp/eck.yaml
