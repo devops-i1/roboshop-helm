@@ -38,6 +38,10 @@ ES_PASSWORD=$(kubectl get secrets -n elastic-stack elasticsearch-es-elastic-user
 sed -e "s/ES_PASSWORD/${ES_PASSWORD}/" eck.yaml >/tmp/eck.yaml
 kubectl apply -f /tmp/eck.yaml
 
+# filebeat
+helm repo add elastic https://helm.elastic.co
+helm install filebeat elastic/filebeat -f filebeat.yml
+
 #cluster autoscale
 helm repo add autoscaler https://kubernetes.github.io/autoscaler
 helm upgrade -i node-autoscaler autoscaler/cluster-autoscaler --set 'autoDiscovery.clusterName'=dev-eks
