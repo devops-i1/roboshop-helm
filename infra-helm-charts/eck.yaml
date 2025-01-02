@@ -1,0 +1,60 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kibana
+  namespace: elastic-stack
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: kibana-dev.akhilsaidevops.online
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kibana-dev.akhilsaidevops.online
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: es-kb-quickstart-eck-kibana-kb-http
+                port:
+                  number: 5601
+            path: /
+
+---
+apiVersion: logstash.k8s.elastic.co/v1alpha1
+kind: Logstash
+metadata:
+  name: logstash
+  namespace: elastic-stack
+spec:
+  count: 1
+  elasticsearchRefs:
+    - name: elasticsearch
+      clusterName: qs
+  version: 8.14.0
+  pipelines:
+    - pipeline.id: main
+      config.string: |
+        input {
+          beats {
+            port => 5044
+          }
+        }
+        output {
+          elasticsearch {
+            hosts => [ "https://elasticsearch-es-http:9200" ]
+            user => "elastic"
+            password => "ES_PASSWORD"
+            ssl_verification_mode => "none"
+          }
+        }
+  services:
+    - name: beats
+      service:
+        spec:
+          type: NodePort
+          ports:
+            - port: 5044
+              name: "filebeat"
+              protocol: TCP
+              targetPort: 5044

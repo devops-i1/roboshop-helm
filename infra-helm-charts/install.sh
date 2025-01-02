@@ -34,6 +34,10 @@ kubectl create -f https://download.elastic.co/downloads/eck/2.13.0/crds.yaml
 kubectl apply -f https://download.elastic.co/downloads/eck/2.13.0/operator.yaml
 helm install elk elastic/eck-stack -n elastic-stack --create-namespace
 
+ES_PASSWORD=$(kubectl get secrets -n elastic-stack elasticsearch-es-elastic-user -o json | jq '.data.elastic' | sed -e 's/"//g' | base64 --decode)
+sed -e "s/ES_PASSWORD/${ES_PASSWORD}/" eck.yaml >/tmp/eck.yaml
+kubectl apply -f /tmp/eck.yaml
+
 
 ## End
 echo
