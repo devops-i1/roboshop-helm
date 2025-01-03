@@ -46,6 +46,7 @@ spec:
             user => "elastic"
             password => "ES_PASSWORD"
             ssl_verification_mode => "none"
+            index => "%{[kubernetes][container][name]}-%{+YYYY.MM.dd}"
           }
         }
   services:
