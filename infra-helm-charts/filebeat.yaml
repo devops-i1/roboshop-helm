@@ -39,7 +39,7 @@ daemonset:
                 logs_path: "/var/log/containers/"
 
       output.logstash:
-        hosts: 'logstash-ls-beats:5044'
+        hosts: 'logstash-ls-beats.elastic-stack.svc.cluster.local:5044'
   # Only used when updateStrategy is set to "RollingUpdate"
   maxUnavailable: 1
   nodeSelector: {}
