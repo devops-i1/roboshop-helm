@@ -14,7 +14,7 @@ spec:
           emptyDir:
             sizeLimit: 5Mi
       initContainers:
-        - name: vault
+        - name: {{ .Values.component }}-vault
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/vault-init-container:v5
           env:
             - name: VAULT_ADDR
@@ -32,7 +32,7 @@ spec:
             - mountPath: /data
               name: vault
       containers:
-        - name: schema-load
+        - name: {{ .Values.component }}-schema-load
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/schema-init-container:v7
           env:
             - name: db_type

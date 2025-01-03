@@ -24,7 +24,7 @@ spec:
             sizeLimit: 5Mi
       {{ if .Values.initContainers.vault_init_container_enabled }}
       initContainers:
-        - name: vault
+        - name: {{ .Values.component }}-vault
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/vault-init-container:v5
           env:
             - name: VAULT_ADDR
