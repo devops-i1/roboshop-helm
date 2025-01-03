@@ -6,6 +6,8 @@ metadata:
   labels:
     appName: {{ .Values.component }}
     projectName: {{ .Chart.Name }}
+  annotations:
+    "helm.sh/hook": pre-install
 spec:
   template:
     spec:
