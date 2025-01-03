@@ -40,7 +40,7 @@ kubectl apply -f /tmp/eck.yaml
 
 # filebeat
 helm repo add elastic https://helm.elastic.co
-helm install filebeat elastic/filebeat -f filebeat.yml
+helm update -i filebeat elastic/filebeat -f filebeat.yml
 
 #cluster autoscale
 helm repo add autoscaler https://kubernetes.github.io/autoscaler
