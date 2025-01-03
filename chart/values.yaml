@@ -8,3 +8,8 @@ schema:
 
 deployment:
   replicas: 1
+
+hpa:
+  minReplica: 1
+  maxReplica: 8
+  cpuUtilization: 50
