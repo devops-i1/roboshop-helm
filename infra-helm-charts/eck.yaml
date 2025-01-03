@@ -40,6 +40,15 @@ spec:
             port => 5044
           }
         }
+        
+        filter {
+          if [kubernetes][container][name] == "frontend" {
+            grok {
+              match => { "message" => "%{IP:source_ip}%{SPACE}%{HTTPDATE:http_date}%{SPACE}%{WORD:http_method}%{SPACE}%{PATH:http_path}%{SPACE}%{WORD}/%{NUMBER}%{SPACE}%{NUMBER:http_status:int}%{SPACE}%{NUMBER:http_reponse_bytes:int}%{SPACE}(%{URI:http_url}|-)%{SPACE}%{NUMBER:response_time:float}" }
+            }
+          }
+        }        
+        
         output {
           elasticsearch {
             hosts => [ "https://elasticsearch-es-http:9200" ]
