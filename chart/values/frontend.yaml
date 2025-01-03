@@ -11,3 +11,11 @@ service:
 ingress:
   enabled: true
   hostName: frontend-dev.akhilsaidevops.online
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "200m"
+  limits:
+    memory: "512Mi"
+    cpu: "400m"

@@ -16,3 +16,11 @@ service:
 
 ingress:
   enabled: false
+
+resources:
+  requests:
+    memory: "2Gi"
+    cpu: "500m"
+  limits:
+    memory: "3Gi"
+    cpu: "1000m"

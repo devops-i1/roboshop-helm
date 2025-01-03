@@ -46,6 +46,10 @@ spec:
       containers:
         - name: {{ .Values.component }}
           image: 835817189095.dkr.ecr.us-east-1.amazonaws.com/{{ .Chart.Name }}-{{ .Values.component }}:{{ .Values.appVersion }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
     {{ if .Values.initContainers.enabled }}
           volumeMounts:
             - mountPath: /data
